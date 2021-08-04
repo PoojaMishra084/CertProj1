@@ -44,16 +44,16 @@ node {
            
             stage('Build docker image') {
                 echo 'building docker image from Dockerfile'
-                sh "${dockerCMD} build -t poojamishra084/addressbook:2.0 ."
+                sh " sudo ${dockerCMD} build -t poojamishra084/addressbook:2.0 ."
             }
             
             stage('Push docker image') {
                 echo 'Authenticating user to push image on Docker hub'
                 withCredentials([string(credentialsId: 'dockerPwd', variable: 'dockerHubPwd')]) {
-                   sh "${dockerCMD} login -u poojamishra084 -p ${dockerHubPwd}"
+                   sh " sudo ${dockerCMD} login -u poojamishra084 -p ${dockerHubPwd}"
                 }
                 echo 'pushing image on docker hub'
-                sh "${dockerCMD} push poojamishra084/addressbook:2.0"
+                sh "sudo ${dockerCMD} push poojamishra084/addressbook:2.0"
              }
               
             stage('Run Apt Update'){
