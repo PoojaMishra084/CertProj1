@@ -80,7 +80,6 @@ node {
             stage('Deploy Application'){
                 echo 'Deploying Application on aws Instance'
               sshagent(['aws-ubuntu']) {
-
                    sh "ssh -o StrictHostKeyChecking=no ${user}@${ipAddress} ${dockerRun}" 
                }
             }  
