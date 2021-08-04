@@ -49,7 +49,7 @@ node {
             
             stage('Push docker image') {
                 echo 'Authenticating user to push image on Docker hub'
-                withCredentials([bindings(credentialsId: 'dockerPwd', variable: 'dockerHubPwd')]) {
+                withCredentials([binding(credentialsId: 'dockerPwd', variable: 'dockerHubPwd')]) {
                    sh " sudo ${dockerCMD} login -u poojamishra084 -p ${dockerHubPwd}"
                 }
                 echo 'pushing image on docker hub'
