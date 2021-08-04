@@ -14,17 +14,17 @@ node {
                 echo 'preparing the environment'
                 docker = tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
                 dockerCMD = "$docker/bin/docker"
-                ipAddress = "18.117.187.217"
+                ipAddress = "18.191.164.190"
                 aptUpdate = "sudo apt update"
                 dockerInstall = "sudo apt install -y docker.io"
                 dockerStart = "sudo service docker start"
-                dockerRun = "sudo docker run -d -p 8082:8080 --name=addressbook shubhamkushwah123/addressbook:2.0"
+                dockerRun = "sudo docker run -d -p 8082:8080 --name=addressbook poojamishra084/addressbook:2.0"
                 user = "ubuntu"
            }
            
            stage('git checkout'){
                echo 'checking out code from github repository'
-               git 'https://github.com/shubhamkushwah123/docker-demo.git'
+               git 'https://github.com/PoojaMishra084/CertProj1.git'
            }
            stage('compile Test and Package') {
              echo 'Compile code, Testing and Packaging'
@@ -44,16 +44,16 @@ node {
            
             stage('Build docker image') {
                 echo 'building docker image from Dockerfile'
-                sh "${dockerCMD} build -t shubhamkushwah123/addressbook:2.0 ."
+                sh "${dockerCMD} build -t poojamishra084/addressbook:2.0 ."
             }
             
             stage('Push docker image') {
                 echo 'Authenticating user to push image on Docker hub'
                 withCredentials([string(credentialsId: 'dockerPwd', variable: 'dockerHubPwd')]) {
-                   sh "${dockerCMD} login -u shubhamkushwah123 -p ${dockerHubPwd}"
+                   sh "${dockerCMD} login -u poojamishra084 -p ${dockerHubPwd}"
                 }
                 echo 'pushing image on docker hub'
-                sh "${dockerCMD} push shubhamkushwah123/addressbook:2.0"
+                sh "${dockerCMD} push poojamishra084/addressbook:2.0"
              }
               
             stage('Run Apt Update'){
